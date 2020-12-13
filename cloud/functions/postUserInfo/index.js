@@ -1,14 +1,17 @@
 const cloud = require("wx-server-sdk");
-cloud.init();
+cloud.init({
+    env: 'jie-h4f74',
+    traceUser: true
+})
 const db = cloud.database();
 const userCollection = db.collection("user");
 
 exports.main = async event => {
     const { OPENID } = cloud.getWXContext();
-    const { name, gender, avatarUrl, phone } = event;
-    console.log('event',event);
-    
-    // try {
+    const { username, gender, avatarUrl, phone } = event;
+    console.log('event', event);
+
+    try {
         const [userRecord] = (await userCollection
             .where({
                 openId: OPENID
@@ -17,34 +20,37 @@ exports.main = async event => {
         console.log("查到的用户信息", userRecord);
         if (!userRecord) {
             return {
-                code: 1,
+                code: 400,
                 message: "用户不存在"
             };
         } else {
             await userCollection.doc(userRecord._id).update({
                 data: {
-                    username: name,
+                    username,
                     phone,
                     gender,
                     avatarUrl
                 },
-                success: function(suc) {
-                    console.log('update', suc)
+                success: function (suc) {
+                    console.log('updateOK', suc)
                 }
             });
         }
         return {
+            code: 200,
+            message: "ok",
             openId: OPENID,
-            username: name,
+            username,
             phone,
             gender,
             avatarUrl
         };
-    // } catch (e) {
-    //     console.log(e);
-    //     return {
-    //         code:500,
-    //         message:"服务器错误",
-    //     }
-    // }
+
+    } catch (e) {
+        console.log(e);
+        return {
+            code: 500,
+            message: "服务器错误",
+        }
+    }
 };

@@ -10,20 +10,35 @@ export default class Index extends Component {
     navigationBarTitleText: '首页'
   }
 
-  componentWillMount () { }
+  componentWillMount() { }
 
-  componentDidMount () { }
+  componentDidMount() {
+    try {
+      var userInfo = Taro.getStorageSync('userInfo')
+      if (userInfo) {
+        Taro.switchTab({
+          url: '../../pages/home/home',
+          success: function (res) {
+            // console.log(res)
+          },
+          fail: function (err) {
+            // console.log(err)
+          }
+        })
+      }
+    } catch (e) { }
+  }
 
-  componentWillUnmount () { }
+  componentWillUnmount() { }
 
-  componentDidShow () { }
+  componentDidShow() { }
 
-  componentDidHide () { }
+  componentDidHide() { }
 
-  render () {
+  render() {
     return (
       <View className='index'>
-        <Login/>
+        <Login />
       </View>
     )
   }

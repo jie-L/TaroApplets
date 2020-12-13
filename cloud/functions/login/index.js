@@ -1,5 +1,8 @@
 const cloud = require('wx-server-sdk')
-cloud.init()
+cloud.init({
+  env: 'jie-h4f74',
+  traceUser: true
+})
 const db = cloud.database()
 const userCollection = db.collection('user')
 
@@ -17,6 +20,9 @@ exports.main = async () => {
           openId: OPENID,
           createdTime: db.serverDate(),
         },
+        success: function(res) {
+          console.log('用户添加成功', res)
+        }
       })
       // 有记录，返回用户信息
     } else {
@@ -26,6 +32,8 @@ exports.main = async () => {
       phone = userInfo.phone
     }
     return {
+      code: 200,
+      message: "ok",
       username: username || null,
       avatarUrl: avatarUrl || null,
       gender: gender || null,

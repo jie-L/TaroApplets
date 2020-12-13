@@ -13,8 +13,31 @@ class App extends Component {
 
   config = {
     pages: [
-      'pages/index/index'
+      'pages/index/index',
+      'pages/home/home',
+      'pages/my/my',
+
     ],
+    tabBar: {
+      list: [
+        {
+          'iconPath': './images/icon/index_d.png',
+          'selectedIconPath': './images/icon/index_l.png',
+          pagePath: 'pages/home/home',
+          text: '首页'
+        },
+        {
+          'iconPath': './images/icon/my_d.png',
+          'selectedIconPath': './images/icon/my_l.png',
+          pagePath: 'pages/my/my',
+          text: '我的'
+        }
+      ],
+      'color': '#000',
+      'selectedColor': '#56abe4',
+      'backgroundColor': '#fff',
+      'borderStyle': 'white'
+    },
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
