@@ -36,7 +36,7 @@ class App extends Component {
       'color': '#000',
       'selectedColor': '#56abe4',
       'backgroundColor': '#fff',
-      'borderStyle': 'white'
+      'borderStyle': 'black'
     },
     window: {
       backgroundTextStyle: 'light',

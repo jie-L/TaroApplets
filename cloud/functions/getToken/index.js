@@ -40,6 +40,7 @@ setToken = async (token, allIp, allToken) => {
     if (!ip) {
       await ipList.add({
         data: {
+          isAdd: '0',
           ip: curentIp,
           updateTime: db.serverDate(),
         },

@@ -4,7 +4,7 @@ import './Home.less'
 
 export default class Home extends Component {
   state = {
-    msg: 'Home',
+    msg: '正在开发中...',
     access_token: '',
   }
 
@@ -14,47 +14,47 @@ export default class Home extends Component {
   componentDidMount() {
     Taro.setNavigationBarColor({
       frontColor: '#000000',
-      backgroundColor: '#ffff00',
+      // backgroundColor: '#ffff00',
       // animation: {
       //   duration: 400,
       //   timingFunc: 'easeIn'
       // }
     })
 
-    Taro.showLoading({
-      title: '加载中...',
-    })
+    // Taro.showLoading({
+    //   title: '加载中...',
+    // })
 
-    Taro.cloud
-      .callFunction({
-        name: 'getToken',
-        data: {
-          type: 'get'
-        },
-      })
-      .then(res => {
-        console.log(res)
-        var result = res.result
-        if (result && result.code === 200) {
-          this.setState({ access_token: result.access_token }, () => {
-            this.getArtcleList()
-          })
-        } else if (result.code === 201) {
-          Taro.hideLoading()
-          Taro.showToast({
-            title: '请联系管理员添加ip白名单！',
-            icon: 'success',
-            duration: 1000
-          })
-        } else {
-          Taro.hideLoading()
-          Taro.showToast({
-            title: '服务器异常，请联系管理员！',
-            icon: 'success',
-            duration: 1000
-          })
-        }
-      })
+    // Taro.cloud
+    //   .callFunction({
+    //     name: 'getToken',
+    //     data: {
+    //       type: 'get'
+    //     },
+    //   })
+    //   .then(res => {
+    //     console.log(res)
+    //     var result = res.result
+    //     if (result && result.code === 200) {
+    //       this.setState({ access_token: result.access_token }, () => {
+    //         this.getArtcleList()
+    //       })
+    //     } else if (result.code === 201) {
+    //       Taro.hideLoading()
+    //       Taro.showToast({
+    //         title: '请联系管理员添加ip白名单！',
+    //         icon: 'success',
+    //         duration: 1000
+    //       })
+    //     } else {
+    //       Taro.hideLoading()
+    //       Taro.showToast({
+    //         title: '服务器异常，请联系管理员！',
+    //         icon: 'success',
+    //         duration: 1000
+    //       })
+    //     }
+    //   })
   }
 
   componentWillUnmount() { }
@@ -69,7 +69,7 @@ export default class Home extends Component {
       .callFunction({
         name: 'articleList',
         data: {
-          type: 'image',
+          type: 'news',
           offset: 0,
           count: 10,
           access_token
